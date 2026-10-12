@@ -1,0 +1,18 @@
+# 本插件的依赖策略：**零外部依赖**。
+#
+# 为什么不带 node_modules：
+#   · 本插件以 `link:` 方式装进 DSH profile，而 pnpm 的 link **不会**为被链接的包
+#     安装它自己的依赖；
+#   · 装进 profile 后，Node 按 realpath 从插件目录向上找 node_modules，
+#     所以任何裸说明符的 import 都可能 ERR_MODULE_NOT_FOUND。
+#
+# 因此本插件：
+#   · src/*.mjs 只 import `node:*` 内置模块与相对路径；
+#   · `@deepseek-ai/schemastery` 与 `@deepseek-ai/cosmokit` 以原样副本放在 vendor/
+#     （见 vendor/README.md），用相对路径引入 —— 这是唯一一处例外；
+#   · Provider 与适配器都自己实现（src/index.mjs、src/adapter.mjs），
+#     不 import `@deepseek-ai/*`、`@earendil-works/pi-ai` 或任何第三方包。
+node_modules
+fixtures
+*.log
+*.tgz

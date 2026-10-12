@@ -1,0 +1,48 @@
+{
+  "name": "dsh-llm-oc-free",
+  "version": "0.1.0",
+  "private": true,
+  "description": "把 OpenCode 的免费模型作为 DSH 的一个 Provider：插件内自带隔离运行时与协议翻译，不需要 Electron 外壳或中转代理",
+  "type": "module",
+  "main": "src/index.mjs",
+  "exports": {
+    ".": "./src/index.mjs",
+    "./package.json": "./package.json"
+  },
+  "files": [
+    "src",
+    "vendor",
+    "cordis.patch.yml",
+    "README.md"
+  ],
+  "scripts": {
+    "test": "node --test test/protocol.test.mjs test/handoff.test.mjs test/adapter.test.mjs test/settings-contract.test.mjs",
+    "test:live": "node --test test/e2e-live.test.mjs test/catalog-live.test.mjs test/apply.test.mjs",
+    "check": "node test/check-syntax.mjs",
+    "fixtures": "node test/prepare-fixtures.mjs"
+  },
+  "engines": {
+    "node": ">=22.19.0"
+  },
+  "peerDependencies": {
+    "@deepseek-ai/dsh-llm": "*",
+    "@deepseek-ai/dsh-llm-pi-ai": "*"
+  },
+  "dsh": {
+    "bundle": {
+      "patch": "./cordis.patch.yml"
+    }
+  },
+  "meta": {
+    "title": "OpenCode 免费模型",
+    "description": "自带隔离 OpenCode 运行时的免费模型 Provider：内建协议翻译与审批围栏。"
+  },
+  "keywords": [
+    "deepseek-harness",
+    "dsh",
+    "opencode",
+    "free-models",
+    "provider"
+  ],
+  "license": "MIT"
+}

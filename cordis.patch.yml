@@ -1,0 +1,18 @@
+# 把本插件的 Host 行插入 profile。
+# 不需要 disable 任何内置行：本插件注册的是自己的 Provider（oc-free），
+# 与内置 llm-pi-ai 的既有权重路由并列共存。
+#
+# 这些字段同时由 src/config.mjs 的 Config 模式声明（设置 → 模型 里的编辑表单
+# 就是照它渲染的），改这里等于改那行的默认值。
+- insert:
+    - id: llm-oc-free
+      name: 'dsh-llm-oc-free'
+      config:
+        # 留空表示：先找已装的 opencode，找不到就按需下载官方 npm 包到托管目录。
+        opencodePath: ''
+        # 插件数据目录；留空则按系统惯例（Windows 为 %APPDATA%\dsh-llm-oc-free）。
+        dataDir: ''
+        # 单次推理的上限（毫秒）。免费模型排队时可能很慢。
+        requestTimeoutMs: 300000
+        # 允许广告给 DSH 的模型；空数组 = 目录里全部免费模型。
+        modelAllowlist: []
